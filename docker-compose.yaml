@@ -1,0 +1,12 @@
+version: '3'
+services:
+  tower-control:
+    image: "cmmdc/tower-control:0.1.0"
+    ports:
+      - "8080:8080"
+  worker-node-1:
+    image: "cmmdc/worker-node:0.1.0"
+    environment:
+      - tower-controll.uri=http://tower-control:8080
+      - self.uri=http://worker-node-1:8080
+      - value=102

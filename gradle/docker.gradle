@@ -1,0 +1,9 @@
+import org.gradle.internal.os.OperatingSystem
+
+task dockerBuild (type:Exec, dependsOn: [build, bootJar]){
+    commandLine  "cmd", "-c", "\"docker build --build-arg JAR_FILE=./build/libs/${bootJar.baseName}-${bootJar.version}.jar --tag docker.in-tech.global/maroon/${bootJar.baseName}:${bootJar.version} . --rm=true\""
+}
+
+task dockerPublish(type:Exec, dependsOn: dockerBuild ){
+    commandLine  "cmd", "-c", "\"docker push docker.in-tech.global/maroon/${bootJar.baseName}:${bootJar.version}\""
+}

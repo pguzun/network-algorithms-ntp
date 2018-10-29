@@ -1,0 +1,27 @@
+plugins {
+    id  "java"
+    id "org.springframework.boot" version "2.0.5.RELEASE" apply false
+    id "io.spring.dependency-management" version "1.0.6.RELEASE"
+}
+group = 'ro.unitbv.pguzun'
+version =  '0.1.0'
+
+allprojects{
+    repositories {
+        jcenter()
+    }
+}
+subprojects{
+    apply plugin : 'java'
+    apply plugin : 'org.springframework.boot'
+    apply plugin : 'io.spring.dependency-management'
+    //}
+    dependencies {
+        compile 'org.springframework.boot:spring-boot-starter-web'
+        compile 'com.google.guava:guava:26.0-jre'
+    }
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
