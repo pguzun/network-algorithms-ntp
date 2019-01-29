@@ -1,2 +1,2 @@
-include 'client', 'daemon'
+include 'client'
  rootProject.name= 'ntp'

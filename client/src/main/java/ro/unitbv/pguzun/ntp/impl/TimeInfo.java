@@ -3,14 +3,7 @@ package ro.unitbv.pguzun.ntp.impl;
 import java.util.ArrayList; 
 import java.util.List; 
 
-/**
-* Wrapper class to network time packet messages (NTP, etc) that computes 
-* related timing info and stats. 
-* 
-* @author Jason Mathews, MITRE Corp 
-* 
-* @version $Revision: 1299238 $ 
-*/ 
+
 public class TimeInfo { 
 
    private final NtpV3Packet _message; 
@@ -18,68 +11,24 @@ public class TimeInfo {
    private Long _delay; 
    private Long _offset; 
 
-   /**
-    * time at which time message packet was received by local machine 
-    */ 
    private final long _returnTime; 
 
-   /**
-    * flag indicating that the TimeInfo details was processed and delay/offset were computed 
-    */ 
    private boolean _detailsComputed; 
 
-   /**
-    * Create TimeInfo object with raw packet message and destination time received. 
-    * 
-    * @param message NTP message packet 
-    * @param returnTime  destination receive time 
-    * @throws IllegalArgumentException if message is null 
-    */ 
    public TimeInfo(NtpV3Packet message, long returnTime) { 
        this(message, returnTime, null, true); 
    } 
 
-   /**
-    * Create TimeInfo object with raw packet message and destination time received. 
-    * 
-    * @param message NTP message packet 
-    * @param returnTime  destination receive time 
-    * @param comments List of errors/warnings identified during processing 
-    * @throws IllegalArgumentException if message is null 
-    */ 
    public TimeInfo(NtpV3Packet message, long returnTime, List<String> comments) 
    { 
            this(message, returnTime, comments, true); 
    } 
 
-   /**
-    * Create TimeInfo object with raw packet message and destination time received. 
-    * Auto-computes details if computeDetails flag set otherwise this is delayed 
-    * until computeDetails() is called. Delayed computation is for fast 
-    * intialization when sub-millisecond timing is needed. 
-    * 
-    * @param msgPacket NTP message packet 
-    * @param returnTime  destination receive time 
-    * @param doComputeDetails  flag to pre-compute delay/offset values 
-    * @throws IllegalArgumentException if message is null 
-    */ 
    public TimeInfo(NtpV3Packet msgPacket, long returnTime, boolean doComputeDetails) 
    { 
            this(msgPacket, returnTime, null, doComputeDetails); 
    } 
 
-   /**
-    * Create TimeInfo object with raw packet message and destination time received. 
-    * Auto-computes details if computeDetails flag set otherwise this is delayed 
-    * until computeDetails() is called. Delayed computation is for fast 
-    * intialization when sub-millisecond timing is needed. 
-    * 
-    * @param message NTP message packet 
-    * @param returnTime  destination receive time 
-    * @param comments  list of comments used to store errors/warnings with message 
-    * @param doComputeDetails  flag to pre-compute delay/offset values 
-    * @throws IllegalArgumentException if message is null 
-    */ 
    public TimeInfo(NtpV3Packet message, long returnTime, List<String> comments, 
                   boolean doComputeDetails) 
    { 
@@ -94,13 +43,6 @@ public class TimeInfo {
        } 
    } 
 
-   /**
-    * Add comment (error/warning) to list of comments associated 
-    * with processing of NTP parameters. If comment list not create 
-    * then one will be created. 
-    * 
-    * @param comment 
-    */ 
    public void addComment(String comment) 
    { 
        if (_comments == null) { 
@@ -227,52 +169,26 @@ public class TimeInfo {
        } 
    } 
 
-   /**
-    * Return list of comments (if any) during processing of NTP packet. 
-    * 
-    * @return List or null if not yet computed 
-    */ 
    public List<String> getComments() 
    { 
        return _comments; 
    } 
 
-   /**
-    * Get round-trip network delay. If null then could not compute the delay. 
-    * 
-    * @return Long or null if delay not available. 
-    */ 
    public Long getDelay() 
    { 
        return _delay; 
    } 
 
-   /**
-    * Get clock offset needed to adjust local clock to match remote clock. If null then could not 
-    * compute the offset. 
-    * 
-    * @return Long or null if offset not available. 
-    */ 
    public Long getOffset() 
    { 
        return _offset; 
    } 
 
-   /**
-    * Returns NTP message packet. 
-    * 
-    * @return NTP message packet. 
-    */ 
    public NtpV3Packet getMessage() 
    { 
        return _message; 
    } 
 
-   /**
-    * Returns time at which time message packet was received by local machine. 
-    * 
-    * @return packet return time. 
-    */ 
    public long getReturnTime() 
    { 
        return _returnTime; 

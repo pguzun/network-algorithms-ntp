@@ -9,7 +9,4 @@ public enum Mode {
     MODE_BROADCAST ,
     MODE_CONTROL_MESSAGE,
     MODE_PRIVATE;
-    
-    public static void main(String[] args) {
-    }
 }
